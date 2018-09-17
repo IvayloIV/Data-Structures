@@ -1,4 +1,4 @@
-<a href="#"><img src="https://i.imgur.com/FLXrQpZ.png" width="1000" height="330"></img></a>
+<a href="#"><img src="https://i.imgur.com/FLXrQpZ.png" width="1000" height="300"></img></a>
 
 ---
 ## <b>Data Structures - May-2017</b>

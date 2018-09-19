@@ -3,3 +3,4 @@
 ---
 ## <b>Data Structures - May-2017</b>
 1.  [**Lab-Linear Data Structures-Lists**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Lab-Linear_Data_Structures-Lists)
+2.  [**Exercise-Linear Data Structures-Lists**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Linear_Data_Structures-Lists)

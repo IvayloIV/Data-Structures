@@ -11,3 +11,4 @@
 7.  [**Lab-Binary Search Trees**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Lab-Binary_Search_Trees)
 8.  [**Exercise-Binary Search Trees**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Binary_Search_Trees)
 9.  [**Lab-Heaps and Priority Queues**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Lab-Heaps_and_Priority_Queues)
+10.  [**Exercise-Heaps and Priority Queues**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Heaps_and_Priority_Queues)

@@ -17,3 +17,4 @@
 13.  [**Lab-AVL-Trees and AA-Trees**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Lab-AVL-Trees_and_AA_Trees)
 14.  [**Exercise-AVL-Trees and AA-Trees**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-AVL-Trees_and_AA_Trees)
 15.  [**Lab-Ropes and Tries**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Lab-Ropes_and_Tries)
+16.  [**Exercise-Ropes and Tries**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Ropes_and_Tries)

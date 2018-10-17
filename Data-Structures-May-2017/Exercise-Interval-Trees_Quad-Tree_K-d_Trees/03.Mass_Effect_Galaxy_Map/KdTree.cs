@@ -16,6 +16,49 @@ public class KdTree
         public Node Right { get; set; }
     }
 
+    public int GetClustersCount(double xMin, double xMax, double yMin, double yMax, int depth)
+    {
+        return this.GetClustersCount(xMin, xMax, yMin, yMax, depth, this.root);
+    }
+
+    private int GetClustersCount(double xMin, double xMax, double yMin, double yMax, int depth, Node node)
+    {
+        if (node == null)
+        {
+            return 0;
+        }
+
+        var count = 0;
+        if (this.IsOnCluster(xMin, xMax, yMin, yMax, node))
+        {
+            count++;
+        }
+        if (depth % 2 == 0)
+        {
+            if (node.Point.X >= xMin)
+            {
+                count += GetClustersCount(xMin, xMax, yMin, yMax, depth + 1, node.Left);
+            }
+            if (node.Point.X <= xMax)
+            {
+                count += GetClustersCount(xMin, xMax, yMin, yMax, depth + 1, node.Right);
+            }
+        }
+        else if (depth % 2 == 1)
+        {
+            if (node.Point.Y >= yMin)
+            {
+                count += GetClustersCount(xMin, xMax, yMin, yMax, depth + 1, node.Left);
+            }
+            if (node.Point.Y <= yMax)
+            {
+                count += GetClustersCount(xMin, xMax, yMin, yMax, depth + 1, node.Right);
+            }
+        }
+
+        return count;
+    }
+
     public Node Root
     {
         get
@@ -98,6 +141,14 @@ public class KdTree
         }
 
         return cmp;
+    }
+
+    public bool IsOnCluster(double xMin, double xMax, double yMin, double yMax, Node node)
+    {
+        return node.Point.X >= xMin &&
+            node.Point.X <= xMax &&
+            node.Point.Y >= yMin &&
+            node.Point.Y <= yMax;
     }
 
     public void EachInOrder(Action<Point2D> action)

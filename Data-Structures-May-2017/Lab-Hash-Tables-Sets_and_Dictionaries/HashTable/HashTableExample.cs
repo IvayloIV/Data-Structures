@@ -5,7 +5,7 @@ class Example
     static void Main()
     {
         HashTable<string, int> grades = new HashTable<string, int>(4);
-        grades.Add("Pesho1", 1);
+        grades.Add("Pesho1", 1); 
         grades.Add("Misho", 2);
         grades.Add("Pesho3", 3);
         grades.Add("Pesho4", 4);

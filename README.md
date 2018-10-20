@@ -21,3 +21,4 @@
 17.  [**Lab-Interval-Trees, K-d Trees**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Lab-Interval_Trees_K-d_Trees)
 18.  [**Exercise-Interval-Trees, Quad-Tree, K-d-Trees**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Interval-Trees_Quad-Tree_K-d_Trees)
 19.  [**Lab-Hash-Tables, Sets and Dictionaries**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Lab-Hash-Tables-Sets_and_Dictionaries)
+20.  [**Exercise-Hash-Tables, Sets and Dictionaries**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Hash_Tables_Sets_and_Dictionaries)

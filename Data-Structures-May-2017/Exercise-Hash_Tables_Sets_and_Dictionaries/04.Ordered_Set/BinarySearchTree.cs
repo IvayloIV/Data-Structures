@@ -143,7 +143,8 @@ public class BinarySearchTree<T> where T : IComparable<T>
             return node.Right;
         }
 
-        return this.DeleteMin(node.Left);
+        node.Left = this.DeleteMin(node.Left);
+        return node;
     }
 
     private Node FindMaxLeftElement(Node node)

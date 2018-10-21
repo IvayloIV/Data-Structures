@@ -203,7 +203,8 @@ public class AVL<T> where T : IComparable<T>
             return node.Right;
         }
 
-        return this.DeleteMin(node.Left);
+        node.Left = this.DeleteMin(node.Left);
+        return node;
     }
 
     private Node<T> FindMaxLeftElement(Node<T> node)

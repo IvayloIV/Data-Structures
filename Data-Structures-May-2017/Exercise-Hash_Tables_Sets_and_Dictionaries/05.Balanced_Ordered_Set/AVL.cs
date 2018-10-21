@@ -204,6 +204,7 @@ public class AVL<T> where T : IComparable<T>
         }
 
         node.Left = this.DeleteMin(node.Left);
+        node = this.TryToRotate(node);
         return node;
     }
 

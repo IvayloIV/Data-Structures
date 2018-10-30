@@ -26,4 +26,5 @@
 22.  [**Exercise-Combining Data Structures**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Combining_Data_Structures)
 
 ## <b>Data Structures - Exams</b>
-1.  [**Data Structures Retake Exam - 22 May 2016**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data%20Structures-Retake_Exam-22_May_2016)
+1.  [**Data Structures Exam - 13 Sept 2015**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-13_Sept_2015)
+2.  [**Data Structures Retake Exam - 22 May 2016**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data%20Structures-Retake_Exam-22_May_2016)

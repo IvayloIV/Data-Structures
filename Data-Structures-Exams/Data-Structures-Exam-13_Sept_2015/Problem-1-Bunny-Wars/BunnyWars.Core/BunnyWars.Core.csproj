@@ -50,7 +50,7 @@
     <Compile Include="BunnyWarsStructure.cs" />
     <Compile Include="BunnyWarsTestingGround.cs" />
     <Compile Include="IBunnyWarsStructure.cs" />
-    <Compile Include="OrdinalSuffixComparator.cs" />
+    <Compile Include="SuffixOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

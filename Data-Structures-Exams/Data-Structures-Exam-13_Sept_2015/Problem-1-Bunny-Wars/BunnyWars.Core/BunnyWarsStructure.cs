@@ -2,26 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Wintellect.PowerCollections;
 
     public class BunnyWarsStructure : IBunnyWarsStructure
     {
-        private static IComparer<Bunny> SuffixComparator = new OrdinalSuffixComparator();
-
         private Dictionary<int, LinkedList<Bunny>[]> rooms;
+        private OrderedSet<int> roomsByIndex;
         private Dictionary<string, Bunny> bunnies;
-        private OrderedSet<int> roomsById;
         private Dictionary<int, SortedSet<Bunny>> teams;
         private OrderedSet<Bunny> suffixBunnies;
 
         public BunnyWarsStructure()
         {
             this.rooms = new Dictionary<int, LinkedList<Bunny>[]>();
+            this.roomsByIndex = new OrderedSet<int>();
             this.bunnies = new Dictionary<string, Bunny>();
-            this.roomsById = new OrderedSet<int>();
             this.teams = new Dictionary<int, SortedSet<Bunny>>();
-            this.suffixBunnies = new OrderedSet<Bunny>(SuffixComparator);
+            this.suffixBunnies = new OrderedSet<Bunny>(new SuffixOrder());
         }
 
         public int BunnyCount { get { return this.bunnies.Count; } }
@@ -36,7 +33,7 @@
             }
 
             this.rooms[roomId] = new LinkedList<Bunny>[5];
-            this.roomsById.Add(roomId);
+            this.roomsByIndex.Add(roomId);
         }
 
         public void AddBunny(string name, int team, int roomId)
@@ -46,20 +43,10 @@
                 throw new ArgumentException();
             }
 
-            if (team < 0 || team > 4)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
             var newBunny = new Bunny(name, team, roomId);
             this.bunnies[name] = newBunny;
-            if (this.rooms[roomId][newBunny.Team] == null)
-            {
-                this.rooms[roomId][newBunny.Team] = new LinkedList<Bunny>();
-            }
-
-            this.rooms[roomId][newBunny.Team].AddLast(newBunny);
-            this.AddByTeam(team, newBunny);
+            this.AddBunnyInRoom(team, roomId, newBunny);
+            this.AddBunnyByTeam(team, newBunny);
             this.suffixBunnies.Add(newBunny);
         }
 
@@ -70,24 +57,33 @@
                 throw new ArgumentException();
             }
 
-            var bunniesForDelete = this.rooms[roomId];
-            this.DeleteBunnies(bunniesForDelete);
+            this.RemoveAllBunniesInRoom(roomId);
+
             this.rooms.Remove(roomId);
-            this.roomsById.Remove(roomId);
+            this.roomsByIndex.Remove(roomId);
         }
 
         public void Next(string bunnyName)
         {
-            this.CheckExistBunny(bunnyName);
+            if (!this.bunnies.ContainsKey(bunnyName))
+            {
+                throw new ArgumentException();
+            }
+
             var currentBunny = this.bunnies[bunnyName];
-            this.MoveBunny(currentBunny, 1);
+            this.MoveBunny(bunnyName, currentBunny, 1);
+
         }
 
         public void Previous(string bunnyName)
         {
-            this.CheckExistBunny(bunnyName);
+            if (!this.bunnies.ContainsKey(bunnyName))
+            {
+                throw new ArgumentException();
+            }
+
             var currentBunny = this.bunnies[bunnyName];
-            this.MoveBunny(currentBunny, -1);
+            this.MoveBunny(bunnyName, currentBunny, -1);
         }
 
         public void Detonate(string bunnyName)
@@ -98,35 +94,10 @@
             }
 
             var currentBunny = this.bunnies[bunnyName];
-            var currentBunnyTeam = currentBunny.Team;
-            var rooms = this.rooms[currentBunny.RoomId];
-
-            var deadBunnies = new HashSet<Bunny>();
-            for (int i = 0; i < rooms.Length; i++)
-            {
-                var currentTeam = rooms[i];
-                if (currentTeam == null || i == currentBunnyTeam)
-                {
-                    continue;
-                }
-
-                var currentNode = currentTeam.First;
-                while (currentNode != null)
-                {
-                    var currentMember = currentNode.Value;
-                    currentMember.Health -= 30;
-                    if (currentMember.Health <= 0)
-                    {
-                        currentTeam.Remove(currentNode);
-                        this.teams[currentMember.Team].Remove(currentMember);
-                        this.bunnies.Remove(currentMember.Name);
-                        this.suffixBunnies.Remove(currentMember);
-                        currentBunny.Score++;
-                    }
-
-                    currentNode = currentNode.Next;
-                }
-            }
+            var killedBunnies = new LinkedList<Bunny>();
+            this.ReduceHealth(currentBunny, killedBunnies);
+            currentBunny.Score += killedBunnies.Count;
+            this.RemoveKilledBunnies(killedBunnies);
         }
 
         public IEnumerable<Bunny> ListBunniesByTeam(int team)
@@ -147,40 +118,16 @@
             return this.suffixBunnies.Range(low, true, high, false);
         }
 
-        private void CheckExistBunny(string bunnyName)
+        private void AddBunnyInRoom(int team, int roomId, Bunny newBunny)
         {
-            if (!this.bunnies.ContainsKey(bunnyName))
+            if (this.rooms[roomId][team] == null)
             {
-                throw new ArgumentException();
+                this.rooms[roomId][team] = new LinkedList<Bunny>();
             }
+            this.rooms[roomId][team].AddLast(newBunny);
         }
 
-        private void MoveBunny(Bunny currentBunny, int steep)
-        {
-            var currentIndex = this.roomsById.IndexOf(currentBunny.RoomId);
-            var nextIndex = currentIndex + steep;
-
-            if (nextIndex < 0)
-            {
-                nextIndex = this.RoomCount - 1;
-            }
-            else if (nextIndex > this.RoomCount - 1)
-            {
-                nextIndex = 0;
-            }
-
-            var newRoomId = this.roomsById[nextIndex];
-            this.rooms[currentBunny.RoomId][currentBunny.Team].Remove(currentBunny);
-            currentBunny.RoomId = newRoomId;
-
-            if (this.rooms[newRoomId][currentBunny.Team] == null)
-            {
-                this.rooms[newRoomId][currentBunny.Team] = new LinkedList<Bunny>();
-            }
-            this.rooms[newRoomId][currentBunny.Team].AddLast(currentBunny);
-        }
-
-        private void AddByTeam(int team, Bunny newBunny)
+        private void AddBunnyByTeam(int team, Bunny newBunny)
         {
             if (!this.teams.ContainsKey(team))
             {
@@ -190,16 +137,69 @@
             this.teams[team].Add(newBunny);
         }
 
-        private void DeleteBunnies(LinkedList<Bunny>[] bunniesForDelete)
+        private void MoveBunny(string bunnyName, Bunny currentBunny, int step)
         {
-            foreach (var bunnyList in bunniesForDelete)
+            var oldIndex = this.roomsByIndex.IndexOf(currentBunny.RoomId);
+            var newIndex = oldIndex + step;
+
+            if (newIndex > this.roomsByIndex.Count - 1)
             {
-                if (bunnyList != null)
+                newIndex = 0;
+            }
+            else if (newIndex < 0)
+            {
+                newIndex = this.roomsByIndex.Count - 1;
+            }
+
+            this.rooms[currentBunny.RoomId][currentBunny.Team].Remove(currentBunny);
+            var newRoom = this.roomsByIndex[newIndex];
+            this.AddBunnyInRoom(currentBunny.Team, newRoom, currentBunny);
+            currentBunny.RoomId = newRoom;
+        }
+
+        private void RemoveKilledBunnies(LinkedList<Bunny> killedBunnies)
+        {
+            foreach (var bunny in killedBunnies)
+            {
+                this.bunnies.Remove(bunny.Name);
+                this.rooms[bunny.RoomId][bunny.Team].Remove(bunny);
+                this.teams[bunny.Team].Remove(bunny);
+                this.suffixBunnies.Remove(bunny);
+            }
+        }
+
+        private void ReduceHealth(Bunny currentBunny, LinkedList<Bunny> killedBunnies)
+        {
+            for (int i = 0; i < this.rooms[currentBunny.RoomId].Length; i++)
+            {
+                if (i == currentBunny.Team || this.rooms[currentBunny.RoomId][i] == null)
                 {
-                    foreach (var bunny in bunnyList)
+                    continue;
+                }
+                var currentTeam = this.rooms[currentBunny.RoomId][i];
+
+                foreach (var bunny in currentTeam)
+                {
+                    bunny.Health -= 30;
+
+                    if (bunny.Health <= 0)
                     {
-                        this.teams[bunny.Team].Remove(bunny);
+                        killedBunnies.AddLast(bunny);
+                    }
+                }
+            }
+        }
+
+        private void RemoveAllBunniesInRoom(int roomId)
+        {
+            foreach (var arr in this.rooms[roomId])
+            {
+                if (arr != null)
+                {
+                    foreach (var bunny in arr)
+                    {
                         this.bunnies.Remove(bunny.Name);
+                        this.teams[bunny.Team].Remove(bunny);
                         this.suffixBunnies.Remove(bunny);
                     }
                 }

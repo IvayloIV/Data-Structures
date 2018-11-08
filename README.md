@@ -26,9 +26,10 @@
 22.  [**Exercise-Combining Data Structures**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-May-2017/Exercise-Combining_Data_Structures)
 
 ## <b>Data Structures - Exams</b>
-1.  [**Data Structures Exam - 13 Sept 2015**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-13_Sept_2015)
-2.  [**Data Structures Retake Exam - 22 May 2016**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data%20Structures-Retake_Exam-22_May_2016)
-3.  [**Data Structures Exam - 02 July 2017**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-02_July_2017)
-4.  [**Data Structures Retake Exam - 09 Sep 2017**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Retake-Exam-09_Sep_2017)
-5.  [**Data Structures Exam - 11 Mar 2018**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-11_Mar_2018)
-6.  [**Data Structures Exam Retake - 20 May 2018**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-Retake-20_May_2018)
+1.  [**Data Structures - Sample Exam**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Sample-Exam)
+2.  [**Data Structures Exam - 13 Sept 2015**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-13_Sept_2015)
+3.  [**Data Structures Retake Exam - 22 May 2016**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data%20Structures-Retake_Exam-22_May_2016)
+4.  [**Data Structures Exam - 02 July 2017**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-02_July_2017)
+5.  [**Data Structures Retake Exam - 09 Sep 2017**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Retake-Exam-09_Sep_2017)
+6.  [**Data Structures Exam - 11 Mar 2018**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-11_Mar_2018)
+7.  [**Data Structures Exam Retake - 20 May 2018**](https://github.com/IvayloIV/Data-Structures/tree/master/Data-Structures-Exams/Data-Structures-Exam-Retake-20_May_2018)
